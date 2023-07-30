@@ -23,23 +23,24 @@ const App = () => {
   const [largeImage, setLargeImage] = useState(null);
 
   useEffect(() => {
-    if (search) {
-      const fetchPictures = async () => {
-        try {
-          setLoading(true);
-          const data = await fetchPicturesQuery(search, page);
-          data.hits.length === 0
-            ? toast.error('Nothing found')
-            : setPictures(prevPictures => [...prevPictures, ...data.hits]);
-          setTotalHits(data.totalHits);
-        } catch (error) {
-          setError(error.message);
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchPictures();
+    if (!search) {
+      return;
     }
+    const fetchPictures = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchPicturesQuery(search, page);
+        data.hits.length === 0
+          ? toast.error('Nothing found')
+          : setPictures(prevPictures => [...prevPictures, ...data.hits]);
+        setTotalHits(data.totalHits);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPictures();
   }, [search, page]);
 
   const searchPictures = newsearch => {
