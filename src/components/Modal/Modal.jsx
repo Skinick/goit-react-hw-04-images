@@ -40,7 +40,7 @@ Modal.propTypes = {
   toggleModal: PropTypes.func.isRequired,
   largeImage: PropTypes.shape({
     src: PropTypes.string.isRequired,
-  }).isRequired,
+  }),
 };
 
 export default Modal;
